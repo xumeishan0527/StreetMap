@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <title>streetMap</title>
     <link rel="stylesheet" href="css/streetMap.css">
-
 </head>
 <body>
 
-<div>
+<div class="container">
     <aside class="search">
-        <h1 class="search-title">广州大学城高校地图</h1>
-        <form>
-            <input type="text" class="search-input">
-            <button class="search-submit">Filter</button>
+        <h1 class="search-title">广州市高校地图</h1>
+        <form id="search-form">
+            <input type="text" class="search-input" id="search-input"
+                   data-bind="value:filterValue, valueUpdate: 'afterkeydown'">
+            <button class="search-submit" type="submit">Filter</button>
         </form>
 
-        <ul class="search-list">
-            <li>
-                广东工业大学
-            </li>
+        <ul class="search-list" data-bind="foreach: filterList">
+            <li data-bind="text: title, click: $parent.clickList"></li>
         </ul>
 
     </aside>
@@ -27,11 +25,18 @@
         <header class="logo">
             <img src="Category.png" class="logo-img">
         </header>
-        <article class="map"></article>
+        <div id="map"></div>
     </main>
+
 </div>
 
 
-<script src="js/jquery.min.js"></script>
+<script src="js/lib/knockout.js"></script>
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/map.js"></script>
+<script src="js/main.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmNOcMeT_Narvx7udZgivEODkU8lJ1658&v=3&callback=init">
+</script>
 </body>
 </html>
