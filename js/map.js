@@ -275,16 +275,19 @@ function setMarks(geometry) {
 
         markers.push(marker);
 
-        marker.addListener('mouseover', function () {
-            this.setAnimation(google.maps.Animation.BOUNCE);
-        });
-        marker.addListener('mouseout', function () {
-            this.setAnimation(null);
-        });
         (function (item) {
             marker.addListener('click', function () {
-                getRequestByAjax(item);
-                showInfoWindow(this, infoWindow)
+                var self=this;
+                if (this.getAnimation() !== null){
+                    this.setAnimation(null);
+                }else {
+                    this.setAnimation(google.maps.Animation.BOUNCE);
+                    getRequestByAjax(item);
+                    showInfoWindow(this, infoWindow);
+                    setTimeout(function () {
+                        self.setAnimation(null);
+                    },2000)
+                }
             })
         })(geometryItem)
     }
@@ -299,7 +302,6 @@ function clearMarks() {
 function showInfoWindow(marker, infoWindow) {
     if (infoWindow.marker != marker) {
         infoWindow.marker = marker;
-        // infoWindow.setContent('nihao');
         infoWindow.open(map, marker);
     }
 }

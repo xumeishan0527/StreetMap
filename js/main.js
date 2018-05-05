@@ -1,23 +1,29 @@
-// const $searchInput = $('#search-input');
-const $form = $('#search-form');
 
-var control = function () {
-    this.filterValue = ko.observable('');
+var ViewModel = function () {
+    var self = this;
+    self.filterValue = ko.observable('');
 
-    this.filterList = ko.computed(function () {
+    self.filterList = ko.computed(function () {
         var itemark = geometry.filter(function (item) {
-            return item.title.toLowerCase().indexOf(filterValue().toLowerCase()) > -1;
+            return item.title.toLowerCase().indexOf(self.filterValue().toLowerCase()) > -1;
         });
-
         clearMarks();
         setMarks(itemark);
-
         return itemark;
     });
 
-    this.clickList = function (geo) {
-        console.log(geo);
-        google.maps.event.trigger(markers[locations.indexOf(geo)],'click');
+    self.clickList = function (geo) {
+        google.maps.event.trigger(markers[geometry.indexOf(geo)], 'click');
+    };
+
+    self.searchIcon = function () {
+        var $search=$('#search');
+
+        if ($search.css('display')==='block'){
+            $search.css('display','none');
+        }else {
+            $search.css('display','block');
+        }
     }
 };
 
@@ -39,6 +45,6 @@ function getRequestByAjax(item) {
 
 function init() {
     initMap();
-    ko.applyBindings(control);
+    ko.applyBindings(new ViewModel());
 }
 

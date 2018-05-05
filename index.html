@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>streetMap</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <link rel="stylesheet" href="css/streetMap.css">
 </head>
 <body>
 
 <div class="container">
-    <aside class="search">
+    <aside class="search" id="search">
         <h1 class="search-title">广州市高校地图</h1>
         <form id="search-form">
             <input type="text" class="search-input" id="search-input"
@@ -23,7 +24,7 @@
     </aside>
     <main>
         <header class="logo">
-            <img src="Category.png" class="logo-img">
+            <img src="Category.png" class="logo-img" data-bind="click:searchIcon">
         </header>
         <div id="map"></div>
     </main>
